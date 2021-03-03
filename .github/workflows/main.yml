@@ -29,3 +29,4 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         template: ./azuredeploy.json
         parameters: ./azuredeploy.parameters.json
+        region: ${{ secrets.AZURE_LOCATION }}
