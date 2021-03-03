@@ -33,7 +33,7 @@
         },
         "kubernetesVersion": {
             "type": "string",
-            "defaultValue": "1.7.7",
+            "defaultValue": "1.18.10",
             "metadata": {
                 "description": "The version of Kubernetes."
             }
@@ -44,6 +44,7 @@
                 "azure",
                 "kubenet"
             ],
+            "defaultValue": "azure",
             "metadata": {
                 "description": "Network plugin used for building Kubernetes network."
             }
@@ -78,7 +79,7 @@
         },
         "omsSku": {
             "type": "string",
-            "defaultValue": "standalone",
+            "defaultValue": "free",
             "allowedValues": [
                 "free",
                 "standalone",
@@ -90,39 +91,47 @@
         },
         "networkPolicy": {
             "type": "string",
+            "defaultValue": "azure",
             "metadata": {
                 "description": "Network policy used for building Kubernetes network."
             }
         },
         "serviceCidr": {
             "type": "string",
+            "defaultValue": "10.0.0.0/16",
             "metadata": {
                 "description": "A CIDR notation IP range from which to assign service cluster IPs."
             }
         },
         "dnsServiceIP": {
             "type": "string",
+            "defaultValue": "10.0.0.10",
             "metadata": {
                 "description": "Containers DNS server IP address."
             }
         },
         "dockerBridgeCidr": {
             "type": "string",
+            "defaultValue": "172.17.0.1/16",
             "metadata": {
                 "description": "A CIDR notation IP for Docker bridge."
             }
         },
         "enableDiagnostics":{
-            "type": "bool"
+            "type": "bool",
+            "defaultValue": true
         },
         "subnetCidr":{
-            "type": "string"
+            "type": "string",
+            "defaultValue":"10.240.0.0/16"
         },
         "vnetCidr": {
-            "type": "string"
+            "type": "string",
+            "defaultValue":"10.0.0.0/8"
         },
         "adminGroupObjectIDs": {
-            "type": "array"
+            "type": "array",
+            "defaultValue":[]
         }
     },
     "variables": {
