@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "resourceName": {
-            "value": "myRG"
+            "value": "${{ secrets.AZURE_RG }}"
         },
         "location": {
-            "value": "westeurope"
+            "value": "${{ secrets.AZURE_LOCATION }}"
         },
         "kubernetesVersion": {
             "value": "1.18.10"
