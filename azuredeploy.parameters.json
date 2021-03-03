@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "resourceName": {
-            "value": "k8s-hybrid"
+            "value": "myRG"
         },
         "location": {
             "value": "westeurope"
