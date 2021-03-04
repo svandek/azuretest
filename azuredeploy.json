@@ -4,12 +4,14 @@
     "parameters": {
         "resourceName": {
             "type": "string",
+            "defaultValue":"myResourceGroup",
             "metadata": {
                 "description": "The name of the Managed Cluster resource."
             }
         },
         "location": {
             "type": "string",
+            "defaultValue":"westeurope",
             "metadata": {
                 "description": "The location of AKS resource."
             }
