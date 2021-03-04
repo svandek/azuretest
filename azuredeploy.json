@@ -46,7 +46,7 @@
                 "azure",
                 "kubenet"
             ],
-            "defaultValue": "azure",
+            "defaultValue": "kubenet",
             "metadata": {
                 "description": "Network plugin used for building Kubernetes network."
             }
@@ -246,6 +246,9 @@
                                 },
                                 "aadProfile": "[if(parameters('enableRBAC'),variables('aadJsonObject'), json('null'))]",
                                 "apiServerAccessProfile": {
+                                    "authorizedIPRanges": [
+                                        "10.0.0.0/16"
+                                    ],
                                     "enablePrivateCluster": "[parameters('enablePrivateCluster')]"
                                 },
                                 "addonProfiles": {
