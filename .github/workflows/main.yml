@@ -29,5 +29,5 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: ${{ secrets.AZURE_LOCATION }}
         template: ./azuredeploy.json
-        parameters: resourceName=${{ secrets.AZURE_RG }}, location=${{ secrets.AZURE_LOCATION }}
+        parameters: resourceName=${{ secrets.AZURE_RG }}; location=${{ secrets.AZURE_LOCATION }}
         
