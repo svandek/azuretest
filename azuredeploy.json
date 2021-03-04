@@ -46,7 +46,7 @@
                 "azure",
                 "kubenet"
             ],
-            "defaultValue": "kubenet",
+            "defaultValue": "azure",
             "metadata": {
                 "description": "Network plugin used for building Kubernetes network."
             }
