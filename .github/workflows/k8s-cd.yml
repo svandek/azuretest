@@ -46,4 +46,8 @@ jobs:
         images: |
           ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
         imagepullsecrets: |
-          k8s-secret        
+          k8s-secret 
+          
+    - name: Azure logout
+      run: |
+        az logout       

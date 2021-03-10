@@ -1,7 +1,5 @@
-FROM python:3.6
-COPY . /app
-WORKDIR /app
-RUN pip install -r requirements.txt
-EXPOSE 8080
-ENTRYPOINT ["python"]
-CMD ["app/app.py"]
+FROM openjdk:8u131-jre-alpine
+ENV HW_HOME=/opt/hello-world
+ADD HelloWorld.class $HW_HOME/
+WORKDIR $HW_HOME
+ENTRYPOINT ["java", "HelloWorld"]
