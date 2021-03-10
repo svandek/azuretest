@@ -4,9 +4,16 @@
     "parameters": {
         "resourceName": {
             "type": "string",
-            "defaultValue":"myResourceGroup",
+            "defaultValue":"myResource",
             "metadata": {
                 "description": "The name of the Managed Cluster resource."
+            }
+        },
+        "resourceGroupName": {
+            "type": "string",
+            "defaultValue":"myResourceGroup",
+            "metadata": {
+                "description": "The name of the resource group"
             }
         },
         "location": {
@@ -149,7 +156,7 @@
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2018-05-01",
             "location": "[parameters('location')]",
-            "name": "[parameters('resourceName')]",
+            "name": "[parameters('resourceGroupName')]",
             "properties": {}               
         },
         {
@@ -157,7 +164,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
             "subscriptionId": "[subscription().subscriptionId]",
-            "resourceGroup": "[parameters('resourceName')]",
+            "resourceGroup": "[parameters('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "template": {
@@ -198,7 +205,7 @@
             "type": "Microsoft.Resources/deployments",
             "name": "clusterDeployment",
             "apiVersion": "2017-05-10",
-            "resourceGroup": "[parameters('resourceName')]",
+            "resourceGroup": "[parameters('resourceGroupName')]",
             "subscriptionId": "[subscription().subscriptionId]",
             "properties": {
                 "mode": "Incremental",
@@ -272,7 +279,7 @@
                 }
             },
             "dependsOn": [
-                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceName'))]",
+                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceGroupName'))]",
                 "[concat('Microsoft.Resources/deployments/', 'WorkspaceDeployment')]",
                 "[concat('Microsoft.Resources/deployments/', 'vnetDeployment')]"
             ]
@@ -281,7 +288,7 @@
             "type": "Microsoft.Resources/deployments",
             "name": "SolutionDeployment",
             "apiVersion": "2017-05-10",
-            "resourceGroup": "[parameters('resourceName')]",
+            "resourceGroup": "[parameters('resourceGroupName')]",
             "subscriptionId": "[subscription().subscriptionId]",
             "condition":"[parameters('enableDiagnostics')]",
             "properties": {
@@ -312,14 +319,14 @@
             },
             "dependsOn": [
                 "[concat('Microsoft.Resources/deployments/', 'WorkspaceDeployment')]",
-                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceName'))]"
+                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceGroupName'))]"
             ]
         },
         {
             "type": "Microsoft.Resources/deployments",
             "name": "WorkspaceDeployment",
             "apiVersion": "2017-05-10",
-            "resourceGroup": "[parameters('resourceName')]",
+            "resourceGroup": "[parameters('resourceGroupName')]",
             "subscriptionId": "[subscription().subscriptionId]",
             "condition":"[parameters('enableDiagnostics')]",
             "dependsOn": [

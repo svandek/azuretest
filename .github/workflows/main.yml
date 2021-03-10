@@ -3,6 +3,10 @@ name: Azure ARM
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      regionLocation: westeurope
+      resourceGroupName: k8s-landingzone
+      resourceName: k8s-cluster 
     steps:
       # Checkout code
     - uses: actions/checkout@main
@@ -29,5 +33,5 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: ${{ secrets.AZURE_LOCATION }}
         template: ./azuredeploy.json
-        parameters: resourceName=${{ secrets.AZURE_RG }} location=${{ secrets.AZURE_LOCATION }}
+        parameters: resourceName=env.resourceName location=env.regionLocation resourceGroupName=env.resourceGroupName
         
