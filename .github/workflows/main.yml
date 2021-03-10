@@ -34,5 +34,5 @@ jobs:
         subscriptionId: env.subscriptionId
         region: env.regionLocation
         template: ./azuredeploy.json
-        parameters: resourceName=env.resourceName location=env.regionLocation resourceGroupName=env.resourceGroupName
+        parameters: resourceName=${{env.resourceName}} location=${{env.regionLocation}} resourceGroupName=${{env.resourceGroupName}}
         
