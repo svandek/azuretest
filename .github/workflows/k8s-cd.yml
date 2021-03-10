@@ -10,7 +10,7 @@ jobs:
       resourceGroupName: k8s-landingzone
       clusterName: k8s-cluster
       acrName: prototypeacrdemo
-      appName: k8sapp
+      appName: java
     steps:  
     - uses: actions/checkout@master
     
@@ -47,7 +47,7 @@ jobs:
           ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
         imagepullsecrets: |
           k8s-secret 
-          
+
     - name: Azure logout
       run: |
         az logout       

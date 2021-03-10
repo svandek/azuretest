@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: java
-        image: ${{env.acrName}}.azurecr.io/${{env.appName}}
+        image: prototypeacrdemo.azurecr.io/java
         ports:
         - name:  http
           containerPort: 8080
