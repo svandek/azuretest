@@ -180,7 +180,7 @@
                                 "subnets": [
                                     {
                                         "name": "default",
-                                        "id": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',parameters('resourceName'),'/providers/Microsoft.Network/virtualNetworks/',parameters('resourceName'),'-vnet/subnets/default')]",
+                                        "id": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Network/virtualNetworks/',parameters('resourceName'),'-vnet/subnets/default')]",
                                         "properties": {
                                             "addressPrefix": "[parameters('subnetCidr')]"
                                         }
@@ -198,7 +198,7 @@
                 }
             },
             "dependsOn": [
-                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceName'))]"
+                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceGroupName'))]"
             ]
         },
         {
@@ -330,7 +330,7 @@
             "subscriptionId": "[subscription().subscriptionId]",
             "condition":"[parameters('enableDiagnostics')]",
             "dependsOn": [
-                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceName'))]"
+                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceGroupName'))]"
             ],
             "properties": {
                 "mode": "Incremental",
