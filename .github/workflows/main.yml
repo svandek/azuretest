@@ -4,6 +4,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
+      subscriptionId: a1fd9bc3-ab04-4970-86d2-c084f74d0cf1
       regionLocation: westeurope
       resourceGroupName: k8s-landingzone
       resourceName: k8s-cluster 
@@ -30,8 +31,8 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         scope: subscription
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        region: ${{ secrets.AZURE_LOCATION }}
+        subscriptionId: env.subscriptionId
+        region: env.regionLocation
         template: ./azuredeploy.json
         parameters: resourceName=env.resourceName location=env.regionLocation resourceGroupName=env.resourceGroupName
         
