@@ -5,6 +5,7 @@ on:
 name: Deploy to AKS Cluster
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     env:
       resourceGroupName: k8s-landingzone
       clusterName: k8s-cluster
