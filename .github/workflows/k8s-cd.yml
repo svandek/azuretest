@@ -1,0 +1,48 @@
+on:
+  pull_request:
+    branches:
+    - main
+name: Deploy to AKS Cluster
+jobs:
+  deploy:
+    env:
+      resourceGroupName: k8s-landingzone
+      clusterName: k8s-cluster
+      acrName: prototypeacrdemo
+      appName: k8sapp
+    steps:  
+    - uses: actions/checkout@master
+    
+    - uses: Azure/docker-login@v1
+      with:
+        login-server: ${{env.acrUsername}}.azurecr.io
+        username: ${{env.acrName}}
+        password: ${{ secrets.ACR_PASSWORD }}
+    
+    - run: |
+        docker build . -t ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
+        docker push ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
+
+    # Set the target AKS cluster.
+    - uses: Azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{env.resourceName}}
+        resource-group: ${{env.resourceGroupName}}
+
+    - uses: Azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{env.acrName}}.azurecr.io
+        container-registry-username: ${{ secrets.ACR_USERNAME }}
+        container-registry-password: ${{ secrets.ACR_PASSWORD }}
+        secret-name: k8s-secret
+
+    - uses: Azure/k8s-deploy@v1
+      with:
+        manifests: |
+          manifests/deployment.yaml
+          manifests/service.yaml
+        images: |
+          ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
+        imagepullsecrets: |
+          k8s-secret        
