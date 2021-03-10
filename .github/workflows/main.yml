@@ -31,8 +31,8 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         scope: subscription
-        subscriptionId: env.subscriptionId
-        region: env.regionLocation
+        subscriptionId: ${{env.subscriptionId}}
+        region: ${{env.regionLocation}}
         template: ./azuredeploy.json
         parameters: resourceName=${{env.resourceName}} location=${{env.regionLocation}} resourceGroupName=${{env.resourceGroupName}}
         
