@@ -74,7 +74,7 @@
         },
         "enableHttpApplicationRouting": {
             "type": "bool",
-            "defaultValue": false,
+            "defaultValue": true,
             "metadata": {
                 "description": "Boolean flag to turn on and off http application routing."
             }
