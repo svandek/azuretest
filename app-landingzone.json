@@ -26,7 +26,7 @@
         }
     },
     "variables": {
-        "serverFarmId": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',parameters('resourceGroupName'),'/Microsoft.Web/serverfarms/', parameters('appserviceplanName'))]"
+        "serverFarmId": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Web/serverfarms/', parameters('appserviceplanName'))]"
     },
     "resources": [
         {
