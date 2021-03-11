@@ -11,6 +11,7 @@ jobs:
       regionLocation: westeurope
       resourceGroupName: containerapp-landingzone
       servicePlanName: container-appServicePlan
+      appName: flaskdemo
     steps:
       # Checkout code
     - uses: actions/checkout@main
@@ -28,5 +29,5 @@ jobs:
         subscriptionId: ${{env.subscriptionId}}
         region: ${{env.regionLocation}}
         template: ./app-landingzone.json
-        parameters: appserviceplanName=${{env.servicePlanName}} resourceGroupName=${{env.resourceGroupName}} location=${{env.regionLocation}}
+        parameters: appserviceplanName=${{env.servicePlanName}} siteName=${{env.appName}} resourceGroupName=${{env.resourceGroupName}} location=${{env.regionLocation}}
         
