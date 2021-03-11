@@ -45,5 +45,5 @@ jobs:
     # Deploy to Azure
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{env.servicePlanName}}
+        app-name: ${{env.appName}}
         images: ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}      

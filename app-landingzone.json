@@ -25,7 +25,9 @@
             }
         }
     },
-    "variables": {},
+    "variables": {
+        "serverFarmId": "[concat('/subscriptions/',subscription().subscriptionId,'resourceGroups/',parameters('resourceGroupName'),'Microsoft.Web/serverfarms', parameters('appserviceplanName'))]"
+    },
     "resources": [
         {
             "type": "Microsoft.Resources/resourceGroups",
@@ -76,7 +78,7 @@
                             "name": "[parameters('siteName')]",
                             "location": "West Europe",
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/serverfarms', parameters('appserviceplanName'))]"
+                                "[concat('Microsoft.Web/serverfarms', parameters('appserviceplanName'))]"
                             ],
                             "kind": "app,linux,container",
                             "properties": {
@@ -93,7 +95,7 @@
                                         "hostType": "Repository"
                                     }
                                 ],
-                                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appserviceplanName'))]",
+                                "serverFarmId": "[variables('serverFarmId')]",
                                 "reserved": true,
                                 "isXenon": false,
                                 "hyperV": false,
