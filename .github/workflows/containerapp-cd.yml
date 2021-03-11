@@ -2,14 +2,14 @@ on:
   pull_request:
     branches:
     - main
-name: Deploy to AKS Cluster
+name: Deploy to Containerized App Service
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      resourceGroupName: k8s-landingzone
-      clusterName: k8s-cluster
+      resourceGroupName: app-landingzone
       acrName: prototypeacrdemo
+      servicePlanName: container-appServicePlan
       appName: flaskdemo
     steps:  
     - uses: actions/checkout@master
@@ -24,6 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    # Create and publish container image
     - uses: actions/checkout@master
 
     - uses: Azure/docker-login@v1
@@ -36,26 +37,13 @@ jobs:
         docker build . -t ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
         docker push ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
 
-    # Set the target AKS cluster.
-    - uses: Azure/aks-set-context@v1
+    # Log into Azure
+    - uses: azure/login@v1
       with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: ${{env.clusterName}}
-        resource-group: ${{env.resourceGroupName}}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - uses: Azure/k8s-create-secret@v1
+    # Deploy to Azure
+    - uses: azure/webapps-deploy@v2
       with:
-        container-registry-url: ${{env.acrName}}.azurecr.io
-        container-registry-username: ${{env.acrName}}
-        container-registry-password: ${{ secrets.ACR_PASS }}
-        secret-name: k8s-secret
-
-    - uses: Azure/k8s-deploy@v1
-      with:
-        manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
-        images: |
-          ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
-        imagepullsecrets: |
-          k8s-secret       
+        app-name: ${{env.servicePlanName}}
+        images: ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}      

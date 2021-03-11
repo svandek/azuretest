@@ -141,13 +141,17 @@
         "adminGroupObjectIDs": {
             "type": "array",
             "defaultValue":[]
+        },
+        "RBACManagedAAD": {
+            "type": "bool",
+            "defaultValue": false
         }
     },
     "variables": {
         "omsWorkspaceId": "[concat('/subscriptions/',subscription().subscriptionId,'/resourcegroups/',parameters('resourceGroupName'),'/providers/microsoft.operationalinsights/workspaces/','avakubernetesgov-',parameters('resourceName'),'-workspace')]",
         "vnetSubnetID": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Network/virtualNetworks/',parameters('resourceName'),'-vnet/subnets/default')]",
         "aadJsonObject": {
-            "managed": true,
+            "managed": "[parameters('RBACManagedAAD')]",
             "adminGroupObjectIDs": "[parameters('adminGroupObjectIDs')]"
         }
     },
