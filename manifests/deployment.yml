@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
+  name: flaskdemo
   labels:
-    app: flask
+    app: flaskdemo
     env: dev
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: flask
+      app: flaskdemo
   template:
     metadata:
       labels:
-        app: flask
+        app: flaskdemo
         env: dev
     spec:
       containers:
-      - name: flask
-        image: ${{env.acrName}}.azurecr.io/${{env.appName}}
+      - name: flaskdemo
+        image: prototypeacrdemo.azurecr.io/flaskdemo
         ports:
         - name:  http
           containerPort: 8080

@@ -5,19 +5,32 @@ on:
 name: Deploy to AKS Cluster
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     env:
       resourceGroupName: k8s-landingzone
       clusterName: k8s-cluster
       acrName: prototypeacrdemo
-      appName: k8sapp
+      appName: flaskdemo
     steps:  
     - uses: actions/checkout@master
-    
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+          python-version: 3.7
+
+    - name: Install Dependencies for the app
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - uses: actions/checkout@master
+
     - uses: Azure/docker-login@v1
       with:
-        login-server: ${{env.acrUsername}}.azurecr.io
+        login-server: ${{env.acrName}}.azurecr.io
         username: ${{env.acrName}}
-        password: ${{ secrets.ACR_PASSWORD }}
+        password: ${{ secrets.ACR_PASS }}
     
     - run: |
         docker build . -t ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
@@ -27,22 +40,22 @@ jobs:
     - uses: Azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: ${{env.resourceName}}
+        cluster-name: ${{env.clusterName}}
         resource-group: ${{env.resourceGroupName}}
 
     - uses: Azure/k8s-create-secret@v1
       with:
         container-registry-url: ${{env.acrName}}.azurecr.io
-        container-registry-username: ${{ secrets.ACR_USERNAME }}
-        container-registry-password: ${{ secrets.ACR_PASSWORD }}
+        container-registry-username: ${{env.acrName}}
+        container-registry-password: ${{ secrets.ACR_PASS }}
         secret-name: k8s-secret
 
     - uses: Azure/k8s-deploy@v1
       with:
         manifests: |
-          manifests/deployment.yaml
-          manifests/service.yaml
+          manifests/deployment.yml
+          manifests/service.yml
         images: |
           ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
         imagepullsecrets: |
-          k8s-secret        
+          k8s-secret       
