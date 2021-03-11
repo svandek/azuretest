@@ -144,7 +144,7 @@
         },
         "RBACManagedAAD": {
             "type": "bool",
-            "defaultValue": false
+            "defaultValue": true
         }
     },
     "variables": {
