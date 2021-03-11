@@ -10,7 +10,7 @@ jobs:
       resourceGroupName: app-landingzone
       acrName: prototypeacrdemo
       servicePlanName: container-appServicePlan
-      appName: flaskdemo2
+      appName: flaskdemo
     steps:  
     - uses: actions/checkout@master
 
