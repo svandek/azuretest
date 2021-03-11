@@ -31,27 +31,43 @@
             "properties": {}               
         },
         {
-            "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2018-02-01",
-            "name": "[parameters('appserviceplanName')]",
-            "location": "[parameters('location')]",
-            "sku": {
-                "name": "P1v2",
-                "tier": "PremiumV2",
-                "size": "P1v2",
-                "family": "Pv2",
-                "capacity": 1
-            },
-            "kind": "linux",
+            "name": "vnetDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "subscriptionId": "[subscription().subscriptionId]",
+            "resourceGroup": "[parameters('resourceGroupName')]",
             "properties": {
-                "perSiteScaling": false,
-                "maximumElasticWorkerCount": 1,
-                "isSpot": false,
-                "reserved": true,
-                "isXenon": false,
-                "hyperV": false,
-                "targetWorkerCount": 0,
-                "targetWorkerSizeId": 0
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "type": "Microsoft.Web/serverfarms",
+                            "apiVersion": "2018-02-01",
+                            "name": "[parameters('appserviceplanName')]",
+                            "location": "[parameters('location')]",
+                            "sku": {
+                                "name": "P1v2",
+                                "tier": "PremiumV2",
+                                "size": "P1v2",
+                                "family": "Pv2",
+                                "capacity": 1
+                            },
+                            "kind": "linux",
+                            "properties": {
+                                "perSiteScaling": false,
+                                "maximumElasticWorkerCount": 1,
+                                "isSpot": false,
+                                "reserved": true,
+                                "isXenon": false,
+                                "hyperV": false,
+                                "targetWorkerCount": 0,
+                                "targetWorkerSizeId": 0
+                            }
+                        }
+                    ]
+                }
             }
         }
     ]
