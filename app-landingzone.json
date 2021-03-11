@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "appserviceplanName": {
-            "defaultValue": "flaskdemoproto-appserviceplan",
+            "defaultValue": "container-appServicePlan",
             "type": "String"
         },
         "resourceGroupName": {
@@ -19,7 +19,7 @@
             "metadata": {
                 "description": "The location of AKS resource."
             }
-        },
+        }
     },
     "variables": {},
     "resources": [
