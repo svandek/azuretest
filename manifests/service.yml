@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name:  java-svc
+  name:  flaskdemo-svc
 spec:
   selector:
-    app:  java
+    app:  flaskdemo
   type:  LoadBalancer
   ports:
   - name:  http
