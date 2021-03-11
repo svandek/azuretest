@@ -1,0 +1,32 @@
+on:
+  push:
+    branches:
+    - main
+name: Deploy Container App Landingzone
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      subscriptionId: a1fd9bc3-ab04-4970-86d2-c084f74d0cf1
+      regionLocation: westeurope
+      resourceGroupName: containerapp-landingzone
+      servicePlanName: container-appServicePlan
+    steps:
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      # Deploy ARM template
+    - name: Run ARM deploy
+      uses: azure/arm-deploy@v1
+      with:
+        scope: subscription
+        subscriptionId: ${{env.subscriptionId}}
+        region: ${{env.regionLocation}}
+        template: ./app-landingzone.json
+        parameters: appserviceplanName=${{env.servicePlanName}} resourceGroupName=${{env.resourceGroupName}} location=${{env.regionLocation}}
+        

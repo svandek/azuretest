@@ -9,6 +9,7 @@ jobs:
     env:
       resourceGroupName: app-landingzone
       acrName: prototypeacrdemo
+      servicePlanName: container-appServicePlan
       appName: flaskdemo
     steps:  
     - uses: actions/checkout@master
@@ -44,6 +45,5 @@ jobs:
     # Deploy to Azure
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{env.appName}}
-        slot-name: demo
+        app-name: ${{env.servicePlanName}}
         images: ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}      
