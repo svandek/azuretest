@@ -10,9 +10,14 @@ jobs:
       resourceGroupName: k8s-landingzone
       clusterName: k8s-cluster
       acrName: prototypedemoacr
-      appName: flaskdemo
+      appName: flaskdemocontainer
     steps:  
     - uses: actions/checkout@master
+
+    # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
