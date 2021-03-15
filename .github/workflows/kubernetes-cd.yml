@@ -10,7 +10,7 @@ jobs:
       resourceGroupName: k8s-landingzone
       clusterName: k8s-cluster
       acrName: prototypedemoacr
-      appName: flaskdemo
+      appName: flaskdemocontainer
     steps:  
     - uses: actions/checkout@master
 
