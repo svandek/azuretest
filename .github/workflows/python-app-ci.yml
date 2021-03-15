@@ -9,7 +9,7 @@ jobs:
     env:
       resourceGroupName: app-landingzone
       acrName: prototypedemoacr
-      appName: flaskdemoContainer
+      appName: flaskdemocontainer
     steps:
       - uses: actions/checkout@master
       - name: Set up Python 3.7
