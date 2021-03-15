@@ -8,39 +8,39 @@ jobs:
     runs-on: ubuntu-latest
     env:
       resourceGroupName: app-landingzone
-      acrName: prototypeacrdemo
+      acrName: prototypedemoacr
       servicePlanName: container-appServicePlan
-      appName: flaskdemo2
+      appName: flaskdemo
     steps:  
     - uses: actions/checkout@master
-
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
-      with:
-          python-version: 3.7
-
-    - name: Install Dependencies for the app
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    # Create and publish container image
-    - uses: actions/checkout@master
-
-    - uses: Azure/docker-login@v1
-      with:
-        login-server: ${{env.acrName}}.azurecr.io
-        username: ${{env.acrName}}
-        password: ${{ secrets.ACR_PASS }}
-    
-    - run: |
-        docker build . -t ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
-        docker push ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
 
     # Log into Azure
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set Web App ACR authentication
+      uses: Azure/appservice-settings@v1
+      with:
+        app-name: ${{env.appName}} 
+        app-settings-json: |
+          [
+              {
+                  "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                  "value": "${{secrets.ACR_PASS}}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "DOCKER_REGISTRY_SERVER_URL",
+                  "value": "https://${{env.acrName}}.azurecr.io",
+                  "slotSetting": false
+              },
+              {
+                  "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                  "value": "${{env.acrName}}",
+                  "slotSetting": false
+              }
+          ]
 
     # Deploy to Azure
     - uses: azure/webapps-deploy@v2

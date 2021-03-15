@@ -9,33 +9,10 @@ jobs:
     env:
       resourceGroupName: k8s-landingzone
       clusterName: k8s-cluster
-      acrName: prototypeacrdemo
+      acrName: prototypedemoacr
       appName: flaskdemo
     steps:  
     - uses: actions/checkout@master
-
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
-      with:
-          python-version: 3.7
-
-    - name: Install Dependencies for the app
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    # Create and publish container image
-    - uses: actions/checkout@master
-
-    - uses: Azure/docker-login@v1
-      with:
-        login-server: ${{env.acrName}}.azurecr.io
-        username: ${{env.acrName}}
-        password: ${{ secrets.ACR_PASS }}
-    
-    - run: |
-        docker build . -t ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
-        docker push ${{env.acrName}}.azurecr.io/${{env.appName}}:${{ github.sha }}
 
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1

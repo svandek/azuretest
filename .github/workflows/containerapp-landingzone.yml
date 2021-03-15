@@ -7,11 +7,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      subscriptionId: a1fd9bc3-ab04-4970-86d2-c084f74d0cf1
+      subscriptionId: a69ea5f4-a433-4459-aa84-c31759fa1d60
       regionLocation: westeurope
       resourceGroupName: containerapp-landingzone
       servicePlanName: container-appServicePlan
-      appName: flaskdemo2
+      appName: flaskdemo
     steps:
       # Checkout code
     - uses: actions/checkout@main
