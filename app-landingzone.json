@@ -37,7 +37,7 @@
             "properties": {}               
         },
         {
-            "name": "vnetDeployment",
+            "name": "solutionDeployment",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
             "subscriptionId": "[subscription().subscriptionId]",
@@ -112,7 +112,10 @@
                         }
                     ]
                 }
-            }
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Resources/resourceGroups/', parameters('resourceGroupName'))]"
+            ]
         }
     ]
 }
