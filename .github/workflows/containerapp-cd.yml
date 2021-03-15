@@ -7,9 +7,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      resourceGroupName: app-landingzone
-      acrName: prototypedemoacr
+      resourceGroupName: containerapp-landingzone
       servicePlanName: container-appServicePlan
+      acrName: prototypedemoacr
       appName: flaskdemocontainer
     steps:  
     - uses: actions/checkout@master
@@ -18,6 +18,13 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Azure CLI script to provision a new Web App for Container
+      uses: azure/CLI@v0-beta
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az webapp create --resource-group ${{ env.resourceGroupName }} --plan ${{ env.servicePlanName }} --name ${{ env.appName }}  -i nginx    
 
     - name: Set Web App ACR authentication
       uses: Azure/appservice-settings@v1
