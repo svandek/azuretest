@@ -11,6 +11,7 @@ jobs:
       servicePlanName: container-appServicePlan
       acrName: prototypedemoacr
       appName: flaskdemocontainer
+      subscriptionId: a69ea5f4-a433-4459-aa84-c31759fa1d60
     steps:  
     - uses: actions/checkout@master
 
@@ -24,7 +25,7 @@ jobs:
       with:
         azcliversion: latest
         inlineScript: |
-          az webapp create --resource-group ${{ env.resourceGroupName }} --plan ${{ env.servicePlanName }} --name ${{ env.appName }}  -i nginx    
+          az webapp create --subscription ${{ env.subscriptionId }} --resource-group ${{ env.resourceGroupName }} --plan ${{ env.servicePlanName }} --name ${{ env.appName }}  -i nginx    
 
     - name: Set Web App ACR authentication
       uses: Azure/appservice-settings@v1
