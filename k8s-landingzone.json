@@ -148,7 +148,7 @@
         }
     },
     "variables": {
-        "omsWorkspaceId": "[concat('/subscriptions/',subscription().subscriptionId,'/resourcegroups/',parameters('resourceGroupName'),'/providers/microsoft.operationalinsights/workspaces/','avakubernetesgov-',parameters('resourceName'),'-workspace')]",
+        "omsWorkspaceId": "[concat('/subscriptions/',subscription().subscriptionId,'/resourcegroups/',parameters('resourceGroupName'),'/providers/microsoft.operationalinsights/workspaces/','kubernetesgov-',parameters('resourceName'),'-workspace')]",
         "vnetSubnetID": "[concat('/subscriptions/',subscription().subscriptionId,'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Network/virtualNetworks/',parameters('resourceName'),'-vnet/subnets/default')]",
         "aadJsonObject": {
             "managed": "[parameters('RBACManagedAAD')]",
@@ -348,7 +348,7 @@
                             "apiVersion": "2015-11-01-preview",
                             "type": "Microsoft.OperationalInsights/workspaces",
                             "location": "[parameters('location')]",
-                            "name": "[concat('avakubernetesgov-',parameters('resourceName'),'-workspace')]",
+                            "name": "[concat('kubernetesgov-',parameters('resourceName'),'-workspace')]",
                             "properties": {
                                 "sku": {
                                     "name": "[parameters('omsSku')]"
