@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       resourceGroupName: containerapp-lz
-      servicePlanName: container-asp
       acrName: prototypedemoacr
+      servicePlanName: container-asp
       appName: flaskdemocontainer
       subscriptionId: a69ea5f4-a433-4459-aa84-c31759fa1d60
     steps:  
