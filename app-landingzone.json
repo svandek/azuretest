@@ -71,44 +71,6 @@
                                 "targetWorkerCount": 0,
                                 "targetWorkerSizeId": 0
                             }
-                        },
-                        {
-                            "type": "Microsoft.Web/sites",
-                            "apiVersion": "2018-11-01",
-                            "name": "[parameters('siteName')]",
-                            "location": "West Europe",
-                            "dependsOn": [
-                                "[concat('Microsoft.Web/serverfarms/', parameters('appserviceplanName'))]"
-                            ],
-                            "kind": "app,linux,container",
-                            "properties": {
-                                "enabled": true,
-                                "hostNameSslStates": [
-                                    {
-                                        "name": "[concat(parameters('siteName'), '.azurewebsites.net')]",
-                                        "sslState": "Disabled",
-                                        "hostType": "Standard"
-                                    },
-                                    {
-                                        "name": "[concat(parameters('siteName'), '.scm.azurewebsites.net')]",
-                                        "sslState": "Disabled",
-                                        "hostType": "Repository"
-                                    }
-                                ],
-                                "serverFarmId": "[variables('serverFarmId')]",
-                                "reserved": true,
-                                "isXenon": false,
-                                "hyperV": false,
-                                "siteConfig": {},
-                                "scmSiteAlsoStopped": false,
-                                "clientAffinityEnabled": false,
-                                "clientCertEnabled": false,
-                                "hostNamesDisabled": false,
-                                "containerSize": 0,
-                                "dailyMemoryTimeQuota": 0,
-                                "httpsOnly": false,
-                                "redundancyMode": "None"
-                            }
                         }
                     ]
                 }

@@ -9,8 +9,8 @@ jobs:
     env:
       subscriptionId: a69ea5f4-a433-4459-aa84-c31759fa1d60
       regionLocation: westeurope
-      resourceGroupName: containerapp-landingzone
-      servicePlanName: container-appServicePlan
+      resourceGroupName: containerapp-lz
+      servicePlanName: container-asp
       appName: flaskdemocontainer
     steps:
       # Checkout code

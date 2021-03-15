@@ -7,9 +7,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      resourceGroupName: app-landingzone
+      resourceGroupName: containerapp-lz
       acrName: prototypedemoacr
-      servicePlanName: container-appServicePlan
+      servicePlanName: container-asp
       appName: flaskdemocontainer
     steps:  
     - uses: actions/checkout@master
