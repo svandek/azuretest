@@ -11,7 +11,7 @@ jobs:
       regionLocation: westeurope
       resourceGroupName: containerapp-landingzone
       servicePlanName: container-appServicePlan
-      appName: flaskdemo
+      appName: flaskdemoContainer
     steps:
       # Checkout code
     - uses: actions/checkout@main

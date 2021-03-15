@@ -6,6 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-16.04
+    env:
+      resourceGroupName: app-landingzone
+      acrName: prototypedemoacr
+      appName: flaskdemoContainer
     steps:
       - uses: actions/checkout@master
       - name: Set up Python 3.7
